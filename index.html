@@ -1,0 +1,366 @@
+<html>
+  <head>
+    <style id="main_style">
+      *,
+      html,
+      body {
+        box-sizing: border-box;
+        border-width: 0;
+
+        border-style: none;
+
+        border-color: transparent;
+
+        font-family: sans-serif;
+      }
+
+      table {
+        border: solid 0.5px black;
+      }
+
+      td {
+        border: dashed 0.5px lightgray;
+        transition: all 0.2s;
+        height: 2em;
+        width: 2em;
+        text-align: center;
+        vertical-align: middle;
+      }
+
+      td.not--island {
+        background-color: white;
+
+        color: white;
+      }
+
+      .puzzle__container {
+        width: 100vw;
+
+        height: 100vh;
+
+        display: flex;
+
+        justify-content: center;
+
+        align-items: center;
+
+        align-content: center;
+      }
+
+      td.island--hover {
+        background-color: greenyellow;
+
+        color: greenyellow;
+
+        transform: scale(1.03);
+
+        cursor: pointer;
+      }
+
+      td.not--island:hover {
+        background-color: lightgrey;
+
+        color: lightgrey;
+      }
+
+      td.clicked {
+        background-color: purple;
+        color: white;
+      }
+
+      td.clicked.island--hover {
+        background-color: magenta;
+      }
+
+      .color_slider__color {
+        height: 10px;
+        width: 10px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="puzzle__container">
+      <div>
+        <h1>Grid</h1>
+
+        <table>
+          <tbody id="puzzle"></tbody>
+        </table>
+        <button onclick="shake()">Shake</button>
+        <div class="slider_container">
+          <div class="slider_control_group">
+            <div class="slider_range">2</div>
+            <input
+              type="range"
+              min="2"
+              max="16"
+              value="9"
+              class="slider"
+              id="size_slider"
+              onchange="sizeSliderChange(this)"
+            />
+            <div class="slider_range">16</div>
+          </div>
+          <div id="size_slider__value">9</div>
+        </div>
+        <div class="rgb_picker_container">
+          <h3>Color</h3>
+          <div id="color_slider_rgb__color" class="color_slider__color"></div>
+          <div class="slider_container">
+            <div class="slider_control_group">
+              <div class="slider_range">0</div>
+              <input
+                type="range"
+                min="0"
+                max="255"
+                value="127"
+                class="slider"
+                id="color_slider_r"
+                onchange="colorSliderChange()"
+              />
+              <div class="slider_range">255</div>
+            </div>
+            <div id="color_slider_r__value"></div>
+            <div id="color_slider_r__color" class="color_slider__color"></div>
+          </div>
+          <div class="slider_container">
+            <div class="slider_control_group">
+              <div class="slider_range">0</div>
+              <input
+                type="range"
+                min="0"
+                max="255"
+                value="127"
+                class="slider"
+                id="color_slider_g"
+                onchange="colorSliderChange()"
+              />
+              <div class="slider_range">255</div>
+            </div>
+            <div id="color_slider_g__value"></div>
+            <div id="color_slider_g__color" class="color_slider__color"></div>
+          </div>
+          <div class="slider_container">
+            <div class="slider_control_group">
+              <div class="slider_range">0</div>
+              <input
+                type="range"
+                min="0"
+                max="255"
+                value="127"
+                class="slider"
+                id="color_slider_b"
+                onchange="colorSliderChange()"
+              />
+              <div class="slider_range">255</div>
+            </div>
+            <div id="color_slider_b__value"></div>
+            <div id="color_slider_b__color" class="color_slider__color"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+
+<script>
+  //input event handlers
+  const colorSliderChange = () => {
+    const r = document.getElementById("color_slider_r").value;
+    document.getElementById("color_slider_r__value").innerText = r;
+    document.getElementById("color_slider_r__color").style.backgroundColor =
+      "rgb(" + r + ",0,0)";
+
+    const g = document.getElementById("color_slider_g").value;
+    document.getElementById("color_slider_g__value").innerText = g;
+    document.getElementById("color_slider_g__color").style.backgroundColor =
+      "rgb(0," + g + ",0)";
+
+    const b = document.getElementById("color_slider_b").value;
+    document.getElementById("color_slider_b__value").innerText = b;
+    document.getElementById("color_slider_b__color").style.backgroundColor =
+      "rgb(0,0," + b + ")";
+
+    document.getElementById("color_slider_rgb__color").style.backgroundColor =
+      "rgb(" + r + "," + g + "," + b + ")";
+
+    islandStyle.innerHTML = `td.island {background-color: rgb(${r},${g},${b});}`;
+  };
+  const sizeSliderChange = slider => {
+    document.getElementById("size_slider__value").innerText = slider.value;
+    puzzleInit(newGrid(parseInt(slider.value, 10)));
+  };
+  // initial grid
+  const grid = [
+    [0, 0, 0, 0, 1],
+    [1, 1, 0, 0, 0],
+    [1, 1, 0, 1, 1],
+    [0, 0, 0, 0, 0],
+    [1, 1, 1, 0, 0]
+  ];
+  // randomize grid
+  const smallest = 2;
+  const largest = 16;
+  const newGrid = size =>
+    new Array(size)
+      .fill(0)
+      .map(row =>
+        new Array(size).fill(0).map(val => Math.floor(Math.random() * 2))
+      );
+
+  const shake = () => {
+    const size =
+      Math.floor(Math.random() * (largest - smallest + 1)) + smallest;
+
+    const shakenGrid = newGrid(size);
+
+    puzzleInit(shakenGrid);
+  };
+  // island detetection resolver
+  const markIslandAsCounted = (r, c, islandIndex, gridCopy, islands) => {
+    const height = gridCopy.length;
+    const width = gridCopy.length ? gridCopy[0].length : 0;
+
+    if (r < 0 || r >= height || c < 0 || c >= width) {
+      return;
+    }
+
+    if (gridCopy[r][c] === 0) {
+      return;
+    }
+
+    gridCopy[r][c] = 0;
+    islands[r][c] = islandIndex;
+    markIslandAsCounted(r - 1, c, islandIndex, gridCopy, islands);
+    markIslandAsCounted(r + 1, c, islandIndex, gridCopy, islands);
+    markIslandAsCounted(r, c - 1, islandIndex, gridCopy, islands);
+    markIslandAsCounted(r, c + 1, islandIndex, gridCopy, islands);
+  };
+  // island detection control
+  const setIslands = g => {
+    const height = g.length;
+    const width = g.length ? g[0].length : 0;
+
+    let islandIndex = 0;
+    const islands = new Array(height)
+      .fill(0)
+      .map(() => new Array(width).fill(0));
+    const gridCopy = g.map(row => row.map(col => col));
+
+    for (let r = 0; r < height; ++r) {
+      for (let c = 0; c < width; ++c) {
+        if (gridCopy[r][c] === 1) {
+          islandIndex++;
+          markIslandAsCounted(r, c, islandIndex, gridCopy, islands);
+        }
+      }
+    }
+    return islands;
+  };
+  //helper functions for add/remove classes to island
+  const parseIslandNumber = islandIn => {
+    const island = parseInt(islandIn, 10);
+    if (isNaN(island)) {
+      return 0;
+    } else {
+      return island;
+    }
+  };
+  const add = "add";
+  const remove = "remove";
+
+  const addClassToIsland = (islandStr, addClass) =>
+    modClassOnIsland(islandStr, addClass, add);
+
+  const removeClassFromIsland = (
+    islandStr,
+    removeClass,
+    clearInnerText = false
+  ) => modClassOnIsland(islandStr, removeClass, remove, clearInnerText);
+
+  const modClassOnIsland = (islandStr, modClass, action, clearInnerText) => {
+    const island = parseIslandNumber(islandStr);
+    if (island !== 0) {
+      const cellsInIsland = document.querySelectorAll(
+        `.island[island="${island}"]`
+      );
+      for (let i = 0; i < cellsInIsland.length; ++i) {
+        if (action === add) {
+          cellsInIsland[i].classList.add(modClass);
+        } else if (action === remove) {
+          cellsInIsland[i].classList.remove(modClass);
+          if (clearInnerText) {
+            cellsInIsland[i].innerText = "";
+          }
+        }
+      }
+      return cellsInIsland.length;
+    } else {
+      return 0;
+    }
+  };
+
+  // event handler - move into island
+  const puzzleEnter = cell =>
+    addClassToIsland(cell.getAttribute("island"), "island--hover");
+
+  // event handler depart island
+  const puzzleLeave = cell =>
+    removeClassFromIsland(cell.getAttribute("island"), "island--hover");
+
+  let lastIslandStr;
+
+  const puzzleClick = cell => {
+    const islandStr = cell.getAttribute("island");
+
+    //If clicked on island
+    if (islandStr !== "0") {
+      // if last island set ie not first time
+      if (lastIslandStr) {
+        removeClassFromIsland(lastIslandStr, "clicked", true);
+      }
+
+      // modClassOnIsland returns cell count
+      cell.innerText = addClassToIsland(islandStr, "clicked");
+      lastIslandStr = islandStr;
+    }
+  };
+
+  const puzzleInit = g => {
+    const islands = setIslands(g);
+
+    const height = g.length;
+    const width = g.length ? g[0].length : 0;
+
+    const puzzle = document.getElementById("puzzle");
+
+    let html = "";
+
+    islands.forEach((row, rowIndex) => {
+      html += "<tr>";
+
+      row.forEach((islandNumber, colIndex) => {
+        const prefix = islandNumber !== 0 ? "" : "not--";
+
+        html += `<td class="${prefix}island" island="${islandNumber}" onclick="puzzleClick(this)" onmouseleave="puzzleLeave(this)" onmouseenter="puzzleEnter(this)">`;
+
+        html += "</td>";
+      });
+
+      html += "</tr>";
+    });
+
+    puzzle.innerHTML = html;
+  };
+
+  const mainStyle = document.getElementById("main_style");
+  const islandStyle = document.createElement("style");
+
+  mainStyle.parentNode.insertBefore(islandStyle, mainStyle);
+
+  document.addEventListener("DOMContentLoaded", () => {
+    colorSliderChange();
+    puzzleInit(grid);
+  });
+</script>
