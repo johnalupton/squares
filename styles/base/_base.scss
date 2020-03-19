@@ -1,0 +1,26 @@
+@import url("https://fonts.googleapis.com/css?family=PT+Sans|PT+Sans+Narrow:400,700&display=swap");
+
+// box-sizing is NOT inherited property but set as default on top and all other elements to inherit
+// base font size is 16 px so setting font-size to 62.5% means that 1em = 10px. Just makes reading
+// css easier because you nkow 1.6rem = 16px BUT get all the benefits from usign rem (root em) units throughout
+html {
+  box-sizing: border-box;
+  font-size: 62.5%;
+}
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+body {
+  color: $dark-grey;
+  font-family: "PT Sans", Helvetica, Arial, sans-serif;
+  font-size: $m-size;
+  line-height: 1.6;
+}
+
+h1,
+h2 {
+  font-family: "PT Sans Narrow", Helvetica, Arial, sans-serif;
+  font-weight: bold;
+}

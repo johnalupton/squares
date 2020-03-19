@@ -1,0 +1,51 @@
+.box-layout {
+  align-items: center;
+  background: url("/images/background-card.jpg");
+  background-size: cover;
+
+  display: flex;
+  justify-content: center;
+
+  height: 100vh;
+  width: 100vw;
+}
+
+.box-layout__box {
+  display: flex;
+  flex-direction: column;
+
+  background: fade-out(white, 0.15);
+  border-radius: 5px;
+  padding: $l-size $m-size;
+  text-align: center;
+
+  min-width: 40rem;
+  min-height: 70rem;
+}
+
+.box-layout__content {
+  background: url("/images/background-card.jpg");
+  background-size: cover;
+  flex-grow: 2;
+  position: relative;
+}
+.box-layout__content--table {
+  // display: inline-block;
+  position: absolute;
+  top: 50%;
+  width: 100%;
+
+  transform: translateY(-50%);
+  table {
+    margin: 0 auto;
+  }
+}
+
+.box-layout__title-box {
+  background: fade-out(white, 0.15);
+  padding-bottom: $m-size;
+}
+.box-layout__title {
+  margin: 0 0 $m-size 0;
+  line-height: 1;
+}

@@ -1,0 +1,50 @@
+@import "./base/settings";
+@import "./base/base";
+
+@import "./components/box-layout";
+@import "./components/table-layout";
+
+html {
+  box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+// font-family: 'PT Sans Narrow',
+// sans-serif;
+// font-family: 'PT Sans',
+// sans-serif;
+* {
+  box-sizing: border-box;
+  border-width: 0;
+  border-style: none;
+  border-color: transparent;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+h1 {
+  font-size: 2.2rem;
+}
+
+h2 {
+  font-size: 1.8rem;
+}
+
+h3 {
+  font-size: 1.6rem;
+}
+
+body {
+  line-height: 1.6rem;
+  font-size: 1.6rem;
+  font-family: sans-serif;
+  margin: 0;
+  padding: 0;
+}

@@ -1,0 +1,46 @@
+table {
+  border: solid 0.5px black;
+}
+
+td {
+  border: dashed 0.5px $light-grey;
+  transition: all 0.2s;
+  height: 4rem;
+  width: 4rem;
+  text-align: center;
+  vertical-align: middle;
+}
+
+td.not--island {
+  background-color: white;
+}
+td.not--island:hover {
+  background-color: $light-grey;
+}
+
+td.island {
+  background-color: $teal;
+}
+td.island--hover:not(.clicked) {
+  background-color: $teal-hover;
+  transform: scale(1.1);
+  cursor: pointer;
+}
+
+td.island.clicked {
+  background-color: purple;
+  color: white;
+}
+td.island.clicked.island--hover {
+  background-color: magenta;
+}
+
+.color_slider__color {
+  height: 2rem;
+}
+
+.slider_control_group > *,
+.slider_container > * {
+  vertical-align: middle;
+  display: inline-block;
+}

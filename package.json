@@ -1,0 +1,26 @@
+{
+  "name": "squares",
+  "version": "1.0.0",
+  "description": "",
+  "main": "gulpfile.js",
+  "dependencies": {
+    "dev-server": "^0.1.0",
+    "gulp-less": "^4.0.1",
+    "gulp": "^4.0.2",
+    "gulp-sass": "^4.0.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "server": "dev-server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/johnalupton/squares.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/johnalupton/squares/issues"
+  },
+  "homepage": "https://github.com/johnalupton/squares#readme"
+}
