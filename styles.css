@@ -94,6 +94,11 @@ h2 {
   margin: 0 0 1.6rem 0;
   line-height: 1; }
 
+.box-layout__footer {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex; }
+
 table {
   border: solid 0.5px black; }
 

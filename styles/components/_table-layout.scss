@@ -39,25 +39,3 @@ td.island.clicked {
 td.island.clicked.island--hover {
   background-color: teal;
 }
-
-.color_slider__color {
-  height: 2rem;
-  margin: 1rem;
-  width: 30%;
-  margin: 0 auto;
-  & > * {
-    color: white;
-    font-weight: bold;
-    display: inline;
-    vertical-align: middle;
-  }
-}
-
-.slider_control_group > *,
-.slider_container > * {
-  vertical-align: middle;
-  display: inline-block;
-}
-.slider__group {
-  padding: 1rem;
-}

@@ -10,7 +10,8 @@
     />
     <link rel="stylesheet" type="text/css" href="styles.css" />
     <script type="text/javascript" src="script.js"></script>
-    <style id="island-style"></style>
+    <style id="back-style"></style>
+    <style id="hover-style"></style>
   </head>
 
   <body>
@@ -45,69 +46,161 @@
         </div>
 
         <div class="box-layout__footer">
-          <h3>RGB Color</h3>
-          <div class="rgb_picker_container">
-            <div class="slider__group">
-              <div class="slider_container">
-                <div class="slider_control_group">
-                  <span class="slider_range">0</span>
-                  <input
-                    type="range"
-                    min="0"
-                    max="255"
-                    value="0"
-                    class="slider"
-                    id="color_slider_r"
-                    oninput="colorSliderChange()"
-                    ondblclick="colorSliderDblClick(this)"
-                  />
-                  <span class="slider_range">255</span>
+          <div class="color_picker">
+            <h3 id="color_picker_back--title" class="color_picker--title">
+              Back Color
+            </h3>
+            <div class="rgb_picker_container">
+              <div class="slider__group">
+                <div class="slider_container">
+                  <div class="slider_control_group">
+                    <span class="slider_range">0</span>
+                    <input
+                      type="range"
+                      min="0"
+                      max="255"
+                      value="255"
+                      class="slider"
+                      id="color_slider_back_r"
+                      oninput="colorSliderChange(this)"
+                      ondblclick="colorSliderDblClick(this)"
+                    />
+                    <span class="slider_range">255</span>
+                  </div>
+                </div>
+                <div
+                  id="color_slider_back_r__color"
+                  class="color_slider__color"
+                >
+                  <div id="color_slider_back_r__value"></div>
                 </div>
               </div>
-              <div id="color_slider_r__color" class="color_slider__color">
-                <div id="color_slider_r__value"></div>
+              <div class="slider__group">
+                <div class="slider_container">
+                  <div class="slider_control_group">
+                    <span class="slider_range">0</span>
+                    <input
+                      type="range"
+                      min="0"
+                      max="255"
+                      value="255"
+                      class="slider"
+                      id="color_slider_back_g"
+                      oninput="colorSliderChange(this)"
+                      ondblclick="colorSliderDblClick(this)"
+                    />
+                    <span class="slider_range">255</span>
+                  </div>
+                </div>
+                <div
+                  id="color_slider_back_g__color"
+                  class="color_slider__color"
+                >
+                  <div id="color_slider_back_g__value"></div>
+                </div>
+              </div>
+              <div class="slider__group">
+                <div class="slider_container">
+                  <div class="slider_control_group">
+                    <span class="slider_range">0</span>
+                    <input
+                      type="range"
+                      min="0"
+                      max="255"
+                      value="255"
+                      class="slider"
+                      id="color_slider_back_b"
+                      oninput="colorSliderChange(this)"
+                      ondblclick="colorSliderDblClick(this)"
+                    />
+                    <span class="slider_range">255</span>
+                  </div>
+                </div>
+                <div
+                  id="color_slider_back_b__color"
+                  class="color_slider__color"
+                >
+                  <div id="color_slider_back_b__value"></div>
+                </div>
               </div>
             </div>
-            <div class="slider__group">
-              <div class="slider_container">
-                <div class="slider_control_group">
-                  <span class="slider_range">0</span>
-                  <input
-                    type="range"
-                    min="0"
-                    max="255"
-                    value="127"
-                    class="slider"
-                    id="color_slider_g"
-                    oninput="colorSliderChange()"
-                    ondblclick="colorSliderDblClick(this)"
-                  />
-                  <span class="slider_range">255</span>
+          </div>
+          <div class="color_picker">
+            <h3 id="color_picker_hover--title" class="color_picker--title">
+              Hover Color
+            </h3>
+            <div class="rgb_picker_container">
+              <div class="slider__group">
+                <div class="slider_container">
+                  <div class="slider_control_group">
+                    <span class="slider_range">0</span>
+                    <input
+                      type="range"
+                      min="0"
+                      max="255"
+                      value="0"
+                      class="slider"
+                      id="color_slider_hover_r"
+                      oninput="colorSliderChange(this)"
+                      ondblclick="colorSliderDblClick(this)"
+                    />
+                    <span class="slider_range">255</span>
+                  </div>
+                </div>
+                <div
+                  id="color_slider_hover_r__color"
+                  class="color_slider__color"
+                >
+                  <div id="color_slider_hover_r__value"></div>
                 </div>
               </div>
-              <div id="color_slider_g__color" class="color_slider__color">
-                <div id="color_slider_g__value"></div>
-              </div>
-            </div>
-            <div class="slider__group">
-              <div class="slider_container">
-                <div class="slider_control_group">
-                  <span class="slider_range">0</span>
-                  <input
-                    type="range"
-                    min="0"
-                    max="255"
-                    value="0"
-                    class="slider"
-                    id="color_slider_b"
-                    oninput="colorSliderChange()"
-                    ondblclick="colorSliderDblClick(this)"
-                  />
-                  <span class="slider_range">255</span>
+              <div class="slider__group">
+                <div class="slider_container">
+                  <div class="slider_control_group">
+                    <span class="slider_range">0</span>
+                    <input
+                      type="range"
+                      min="0"
+                      max="255"
+                      value="127"
+                      class="slider"
+                      id="color_slider_hover_g"
+                      oninput="colorSliderChange(this)"
+                      ondblclick="colorSliderDblClick(this)"
+                    />
+                    <span class="slider_range">255</span>
+                  </div>
+                </div>
+                <div
+                  id="color_slider_hover_g__color"
+                  class="color_slider__color"
+                >
+                  <div id="color_slider_hover_g__value"></div>
                 </div>
               </div>
-              <div id="color_slider_b__color" class="color_slider__color">
-                <div id="color_slider_b__value"></div>
+              <div class="slider__group">
+                <div class="slider_container">
+                  <div class="slider_control_group">
+                    <span class="slider_range">0</span>
+                    <input
+                      type="range"
+                      min="0"
+                      max="255"
+                      value="0"
+                      class="slider"
+                      id="color_slider_hover_b"
+                      oninput="colorSliderChange(this)"
+                      ondblclick="colorSliderDblClick(this)"
+                    />
+                    <span class="slider_range">255</span>
+                  </div>
+                </div>
+                <div
+                  id="color_slider_hover_b__color"
+                  class="color_slider__color"
+                >
+                  <div id="color_slider_hover_b__value"></div>
+                </div>
               </div>
             </div>
           </div>

@@ -12,11 +12,13 @@ const rgbStr = (r, g, b, o = 1) => `rgba(${r},${g},${b},${o})`;
 // 2. change the background color to reflect the new value - element id = [color_slider_" + color + "__color]
 // 3. return the color chosen as used by calling function
 
-const setSlider = color => {
+const setSlider = (color, control) => {
   let r = 0;
   let g = 0;
   let b = 0;
-  const c = document.getElementById("color_slider_" + color).value;
+
+  const elementRoot = `color_slider_${control}_${color}`;
+  const c = document.getElementById(elementRoot).value;
 
   switch (color) {
     case "r":
@@ -29,9 +31,9 @@ const setSlider = color => {
       b = c;
       break;
   }
-  document.getElementById("color_slider_" + color + "__value").innerText = c;
+  document.getElementById(elementRoot + "__value").innerText = c;
   document.getElementById(
-    "color_slider_" + color + "__color"
+    elementRoot + "__color"
   ).style.backgroundColor = rgbStr(r, g, b);
   return c;
 };
@@ -102,9 +104,16 @@ const modClassOnIsland = (islandStr, modClass, action, clearInnerText) => {
 // Double click on the handle and it re-centres the slider
 // call change method to reflect change of state
 const colorSliderDblClick = slider => {
-  console.log(slider);
   slider.value = 127;
-  colorSliderChange();
+  colorSliderChange(slider);
+};
+//helper to initialse a slider
+const initColorSlider = (slider, r, g, b) => {
+  const elementRoot = `color_slider_${slider}_`;
+  document.getElementById(elementRoot + "r").value = r;
+  document.getElementById(elementRoot + "g").value = g;
+  document.getElementById(elementRoot + "b").value = b;
+  colorSliderChange(document.getElementById(elementRoot + "r"));
 };
 
 // handle change of state
@@ -116,19 +125,24 @@ const colorSliderDblClick = slider => {
 // give the element an ID so in the HTML tehre is an element defined
 // <style id="island-style"></style>
 // this makes it the search for the style element unambiguos and efficient
-const colorSliderChange = () => {
-  const r = setSlider("r");
-  const g = setSlider("g");
-  const b = setSlider("b");
+const colorSliderChange = slider => {
+  const control = slider.id.includes("hover") ? "hover" : "back";
+  const r = setSlider("r", control);
+  const g = setSlider("g", control);
+  const b = setSlider("b", control);
 
   // Find <style id="island-style"></style>
   // opacty set to 0.5 so that "on hover" it can darken but keep same colour
 
-  const html =
-    `td.island {background-color: ${rgbStr(r, g, b, 0.7)};}` +
-    `td.island--hover:not(.clicked) {background-color: ${rgbStr(r, g, b)};}`;
+  const rgb = `${rgbStr(r, g, b)}`;
 
-  document.getElementById("island-style").innerHTML = html;
+  control === "hover"
+    ? (document.getElementById(
+        "hover-style"
+      ).innerHTML = `td.island--hover:not(.clicked) {background-color: ${rgb};} #color_picker_hover--title {background-color: ${rgb}}`)
+    : (document.getElementById(
+        "back-style"
+      ).innerHTML = `td.not--island {background-color: ${rgb};} #color_picker_back--title {background-color: ${rgb}}`);
 };
 
 // handle change of state for size of puzzle
@@ -302,6 +316,7 @@ const gridInit = g => {
 
 // When DOM built initialise the rendering
 document.addEventListener("DOMContentLoaded", () => {
-  colorSliderChange();
+  initColorSlider("back", 255, 255, 127);
+  initColorSlider("hover", 127, 255, 0);
   gridInit(grid);
 });
