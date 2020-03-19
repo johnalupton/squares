@@ -158,6 +158,9 @@ td.island.clicked.island--hover {
 .slider__group {
   padding: 1rem; }
 
+.color_picker--title {
+  padding: 1.6rem; }
+
 html {
   box-sizing: border-box; }
 
