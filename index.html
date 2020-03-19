@@ -1,6 +1,7 @@
 <html>
   <head>
-    <title>Squares App - No react</title>
+    <title>Squares</title>
+    <link id="favicon" rel="icon" type="image/x-icon" href="/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link
       rel="stylesheet"
@@ -13,85 +14,103 @@
   </head>
 
   <body>
-    <div class="puzzle__container">
-      <h1>Grid Size <span id="size_slider__value">5</span></h1>
-      <div class="slider_container">
-        <div class="slider_control_group">
-          <span class="slider_range">2</span>
-          <input
-            type="range"
-            min="2"
-            max="16"
-            value="5"
-            class="slider"
-            id="size_slider"
-            onchange="sizeSliderChange(this)"
-          />
-          <span class="slider_range">16</span>
-        </div>
-      </div>
-      <table>
-        <tbody id="puzzle"></tbody>
-      </table>
-      <h3>RGB Color</h3>
-      <div id="color_slider_rgb__color" class="color_slider__color"></div>
-      <div class="rgb_picker_container">
-        <div class="slider_container">
-          <div class="slider_control_group">
-            <span class="slider_range">0</span>
-            <input
-              type="range"
-              min="0"
-              max="255"
-              value="255"
-              class="slider"
-              id="color_slider_r"
-              oninput="colorSliderChange()"
-              ondblclick="colorSliderDblClick(this)"
-            />
-            <span class="slider_range">255</span>
+    <div class="box-layout">
+      <div class="box-layout__box">
+        <div class="box-layout__title-box">
+          <h1 class="box-layout__title">
+            Grid Size <span id="size_slider__value">5</span>
+          </h1>
+          <div class="slider_container">
+            <div class="slider_control_group">
+              <span class="slider_range">3</span>
+              <input
+                type="range"
+                min="3"
+                max="7"
+                value="5"
+                class="slider"
+                id="size_slider"
+                onchange="sizeSliderChange(this)"
+              />
+              <span class="slider_range">7</span>
+            </div>
           </div>
         </div>
-        <div id="color_slider_r__color" class="color_slider__color">
-          <div id="color_slider_r__value"></div>
-        </div>
-        <div class="slider_container">
-          <div class="slider_control_group">
-            <span class="slider_range">0</span>
-            <input
-              type="range"
-              min="0"
-              max="255"
-              value="127"
-              class="slider"
-              id="color_slider_g"
-              oninput="colorSliderChange()"
-              ondblclick="colorSliderDblClick(this)"
-            />
-            <span class="slider_range">255</span>
+        <div class="box-layout__content">
+          <div class="box-layout__content--table">
+            <table>
+              <tbody id="puzzle"></tbody>
+            </table>
           </div>
         </div>
-        <div id="color_slider_g__color" class="color_slider__color">
-          <div id="color_slider_g__value"></div>
-        </div>
-        <div class="slider_container">
-          <div class="slider_control_group">
-            <span class="slider_range">0</span>
-            <input
-              type="range"
-              min="0"
-              max="255"
-              value="127"
-              class="slider"
-              id="color_slider_b"
-              oninput="colorSliderChange()"
-              ondblclick="colorSliderDblClick(this)"
-            />
-            <span class="slider_range">255</span>
+
+        <div class="box-layout__footer">
+          <h3>RGB Color</h3>
+          <div class="rgb_picker_container">
+            <div class="slider__group">
+              <div class="slider_container">
+                <div class="slider_control_group">
+                  <span class="slider_range">0</span>
+                  <input
+                    type="range"
+                    min="0"
+                    max="255"
+                    value="0"
+                    class="slider"
+                    id="color_slider_r"
+                    oninput="colorSliderChange()"
+                    ondblclick="colorSliderDblClick(this)"
+                  />
+                  <span class="slider_range">255</span>
+                </div>
+              </div>
+              <div id="color_slider_r__color" class="color_slider__color">
+                <div id="color_slider_r__value"></div>
+              </div>
+            </div>
+            <div class="slider__group">
+              <div class="slider_container">
+                <div class="slider_control_group">
+                  <span class="slider_range">0</span>
+                  <input
+                    type="range"
+                    min="0"
+                    max="255"
+                    value="127"
+                    class="slider"
+                    id="color_slider_g"
+                    oninput="colorSliderChange()"
+                    ondblclick="colorSliderDblClick(this)"
+                  />
+                  <span class="slider_range">255</span>
+                </div>
+              </div>
+              <div id="color_slider_g__color" class="color_slider__color">
+                <div id="color_slider_g__value"></div>
+              </div>
+            </div>
+            <div class="slider__group">
+              <div class="slider_container">
+                <div class="slider_control_group">
+                  <span class="slider_range">0</span>
+                  <input
+                    type="range"
+                    min="0"
+                    max="255"
+                    value="0"
+                    class="slider"
+                    id="color_slider_b"
+                    oninput="colorSliderChange()"
+                    ondblclick="colorSliderDblClick(this)"
+                  />
+                  <span class="slider_range">255</span>
+                </div>
+              </div>
+              <div id="color_slider_b__color" class="color_slider__color">
+                <div id="color_slider_b__value"></div>
+              </div>
+            </div>
           </div>
-        </div>
-        <div id="color_slider_b__color" class="color_slider__color">
-          <div id="color_slider_b__value"></div>
         </div>
       </div>
     </div>

@@ -4,7 +4,7 @@ table {
 
 td {
   border: dashed 0.5px $light-grey;
-  transition: all 0.2s;
+  @include transition(all 0.2s);
   height: 4rem;
   width: 4rem;
   text-align: center;
@@ -23,24 +23,41 @@ td.island {
 }
 td.island--hover:not(.clicked) {
   background-color: $teal-hover;
-  transform: scale(1.1);
+  @include prefix(transform, scale(1.1), ms webkit spec);
   cursor: pointer;
 }
 
 td.island.clicked {
-  background-color: purple;
+  background-color: $light-green;
+  background-image: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/2300675/tree-icon.png"),
+    url("/images/tree-icon.png");
+  background-size: contain;
   color: white;
+  font-weight: bold;
+  font-size: $font-size-large;
 }
 td.island.clicked.island--hover {
-  background-color: magenta;
+  background-color: teal;
 }
 
 .color_slider__color {
   height: 2rem;
+  margin: 1rem;
+  width: 30%;
+  margin: 0 auto;
+  & > * {
+    color: white;
+    font-weight: bold;
+    display: inline;
+    vertical-align: middle;
+  }
 }
 
 .slider_control_group > *,
 .slider_container > * {
   vertical-align: middle;
   display: inline-block;
+}
+.slider__group {
+  padding: 1rem;
 }

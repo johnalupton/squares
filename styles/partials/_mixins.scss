@@ -1,0 +1,148 @@
+$width-sm: 768px;
+$width-md: 992px;
+$width-lg: 1200px;
+$mobile-break: 640px;
+$tablet-break: 800px;
+
+@mixin desktop-xs {
+  @media (max-width: #{$width-sm - 1px}) {
+    @content;
+  }
+}
+
+@mixin desktop-sm {
+  @media (min-width: #{$width-sm}) and (max-width: #{$width-md - 1px}) {
+    @content;
+  }
+}
+
+@mixin desktop-md {
+  @media (min-width: #{$width-md}) and (max-width: #{$width-lg - 1px}) {
+    @content;
+  }
+}
+@mixin on-a-mobile {
+  @media (max-width: #{$mobile-break}) {
+    @content;
+  }
+}
+@mixin not-on-a-mobile {
+  @media (min-width: #{$mobile-break + 1px}) {
+    @content;
+  }
+}
+@mixin on-a-tablet {
+  @media (max-width: #{$tablet-break}) {
+    @content;
+  }
+}
+@mixin not-on-a-tablet {
+  @media (min-width: #{$tablet-break + 1px}) {
+    @content;
+  }
+}
+
+/*============================================================================
+  Prefix mixin for generating vendor prefixes.
+  Based on https://github.com/thoughtbot/bourbon/blob/master/app/assets/stylesheets/addons/_prefixer.scss
+
+  Usage:
+    // Input:
+    .element {
+      @include prefix(transform, scale(1), ms webkit spec);
+    }
+
+    // Output:
+    .element {
+      -ms-transform: scale(1);
+      -webkit-transform: scale(1);
+      transform: scale(1);
+    }
+==============================================================================*/
+@mixin prefix($property, $value, $prefixes) {
+  @each $prefix in $prefixes {
+    @if $prefix == webkit {
+      -webkit-#{$property}: $value;
+    } @else if $prefix == moz {
+      -moz-#{$property}: $value;
+    } @else if $prefix == ms {
+      -ms-#{$property}: $value;
+    } @else if $prefix == o {
+      -o-#{$property}: $value;
+    } @else if $prefix == spec {
+      #{$property}: $value;
+    } @else {
+      @warn "Unrecognized prefix: #{$prefix}";
+    }
+  }
+}
+
+@mixin transform($transform) {
+  @include prefix(transform, $transform, ms webkit spec);
+}
+
+@mixin transition($transition) {
+  @include prefix(transition, $transition, ms webkit spec);
+}
+
+/*============================================================================
+  Flexbox prefix mixins from Bourbon
+    https://github.com/thoughtbot/bourbon/blob/master/app/assets/stylesheets/css3/_flex-box.scss
+==============================================================================*/
+@mixin display-flexbox {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  //    width: 100%; - messes up non i.e.
+
+  // necessary for ie10
+}
+
+@mixin flex-wrap($value: nowrap) {
+  @include prefix(flex-wrap, $value, webkit moz ms spec);
+}
+
+@mixin flex-direction($value) {
+  @include prefix(flex-direction, $value, webkit moz ms spec);
+}
+
+@mixin align-items($value: stretch) {
+  $alt-value: $value;
+
+  @if $value == "flex-start" {
+    $alt-value: start;
+  } @else if $value == "flex-end" {
+    $alt-value: end;
+  }
+
+  // sass-lint:disable no-misspelled-properties
+  -ms-flex-align: $alt-value;
+
+  @include prefix(align-items, $value, webkit moz ms o spec);
+}
+
+@mixin flex($value: 0 1 auto) {
+  @include prefix(flex, $value, webkit moz ms spec);
+}
+
+@mixin flex-basis($width: auto) {
+  // sass-lint:disable no-misspelled-properties
+  -ms-flex-preferred-size: $width;
+
+  @include prefix(flex-basis, $width, webkit moz spec);
+}
+
+@mixin align-self($align: auto) {
+  // sass-lint:disable no-misspelled-properties
+  -ms-flex-item-align: $align;
+
+  @include prefix(align-self, $align, webkit spec);
+}
+
+@mixin align-content($align: center) {
+  @include prefix(align-content, $align, webkit ms spec);
+}
+
+@mixin justify-content($justify: flex-start) {
+  @include prefix(justify-content, $justify, webkit ms spec);
+}

@@ -50,7 +50,7 @@
 
 1. Vendor prefixes added using SCSS mixins for `moz` and `webkit`
 
-2. Simple `HTML` file with `sass` styling - separate files in the project but comiled to a single `styles.css` for presentation on codepen
+2. Simple `HTML` file with `sass` styling - separate files in the project but compiled to a single `styles.css` for presentation on codepen
 
 3. Javascript is fully commented to show detailed implementation logic and design decisions
 

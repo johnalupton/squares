@@ -1,18 +1,19 @@
 .box-layout {
   align-items: center;
-  background: url("/images/background-card.jpg");
+  background-image: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/2300675/background-card.jpg"),
+    url("/images/background-card.jpg");
   background-size: cover;
 
-  display: flex;
-  justify-content: center;
+  @include display-flexbox;
+  @include justify-content(center);
 
   height: 100vh;
   width: 100vw;
 }
 
 .box-layout__box {
-  display: flex;
-  flex-direction: column;
+  @include display-flexbox;
+  @include flex-direction(column);
 
   background: fade-out(white, 0.15);
   border-radius: 5px;
@@ -24,9 +25,11 @@
 }
 
 .box-layout__content {
-  background: url("/images/background-card.jpg");
+  background-image: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/2300675/background-graph-paper.jpg"),
+    url("/images/background-graph-paper.jpg");
   background-size: cover;
-  flex-grow: 2;
+  @include prefix(flex, 2, ms webkit spec);
+  // flex-grow: 2;
   position: relative;
 }
 .box-layout__content--table {
@@ -35,7 +38,7 @@
   top: 50%;
   width: 100%;
 
-  transform: translateY(-50%);
+  @include transform(translateY(-50%));
   table {
     margin: 0 auto;
   }
